@@ -1,4 +1,5 @@
 import os
+import threading
 
 def get_files(ignore_list):
     source_directory = os.path.join(os.getcwd(), 'source')
@@ -32,10 +33,32 @@ def get_rules():
         rules = file.readlines()
     return rules
 
+def process_file(file):
+    # Add your code here to modify the file
+    print("Processing file:", file)
+
+def process_files(files):
+    threads = []
+    for file in files:
+        thread = threading.Thread(target=process_file, args=(file,))
+        thread.start()
+        threads.append(thread)
+
+    # Wait for all threads to finish
+    for thread in threads:
+        thread.join()
+        
+    ## TODO: Check file names and modify them as per the rules
+
+
+
 def __main__():
     files = get_files(get_ignore_list())
     for file in files:
         #print(file)
         continue
+    
+    # Call the function to process the files
+    process_files(files)
         
 __main__()
