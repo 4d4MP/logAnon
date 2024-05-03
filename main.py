@@ -53,6 +53,24 @@ def process_files(files):
 
 
 def __main__():
+    # Make results directory, include all subdirectories from source
+    # Make a list of all files in the source directory
+    # Read the ignore list
+    # Read the rules
+    # Process the files
+    # Write the results to the results directory
+    
+    results_directory = os.path.join(os.getcwd(), 'results')
+    os.makedirs(results_directory, exist_ok=True)
+
+    source_directory = os.path.join(os.getcwd(), 'source')
+    for root, dirs, files in os.walk(source_directory):
+        for dir in dirs:
+            dir_path = os.path.join(root, dir)
+            relative_path = os.path.relpath(dir_path, source_directory)
+            results_subdirectory = os.path.join(results_directory, relative_path)
+            os.makedirs(results_subdirectory, exist_ok=True)
+    
     files = get_files(get_ignore_list())
     for file in files:
         #print(file)
