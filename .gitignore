@@ -2,3 +2,5 @@
 /main.rule
 /source másolata
 /results
+*.zip
+*.7z
