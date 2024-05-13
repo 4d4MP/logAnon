@@ -2,7 +2,6 @@ import os
 import threading
 
 def get_files(source_directory, ignore_list):
-    
     print("Reading files from: " + source_directory)
     file_list = []
 
@@ -33,14 +32,12 @@ def get_rules():
     return rules
 
 def process_file(file, result_directory, rules):
-    # Add your code here to modify the file
-    print("Processing file:", file)
     result_list = []
     for line in file:
         for rule in rules:
             if rule in line:
                 # Modify the line, so the rule is not present
-                line = line.replace(rule, "")
+                line = line.replace(rule, get_replace_str(rule))
         result_list.append(line)
     
     # Write the modified content to a new file in the results directory
@@ -48,14 +45,15 @@ def process_file(file, result_directory, rules):
     with open(result_file, 'w') as file:
         file.writelines(result_list)
         
-    print("File processed:", file)
+    print("File processed:", file.name + "\n")
 
 def process_files(files, result_directory, rules):
     threads = []
     for file in files:
-        thread = threading.Thread(target=process_file, args=(file,result_directory,rules,))
-        thread.start()
-        threads.append(thread)
+        if file != None:
+            thread = threading.Thread(target=process_file, args=(file,result_directory,rules,))
+            thread.start()
+            threads.append(thread)
 
     # Wait for all threads to finish
     for thread in threads:
@@ -69,12 +67,15 @@ def check_file_names(result_directory, rules):
         for rule in rules:
             if rule in file_name:
                 # Modify the file name, so the rule is not present
-                new_file_name = file_name.replace(rule, "")
+                new_file_name = file_name.replace(rule, get_replace_str(rule))
                 old_file_path = os.path.join(result_directory, file_name)
                 new_file_path = os.path.join(result_directory, new_file_name)
                 os.rename(old_file_path, new_file_path)
                 print("File name modified:", file_name, "->", new_file_name)
 
+def get_replace_str(rule):
+    return "*" * len(rule)
+        
 
 def __main__():
     
