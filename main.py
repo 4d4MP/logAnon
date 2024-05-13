@@ -1,6 +1,8 @@
 import os
 import threading
 
+maintain_character_length = True
+
 def get_files(source_directory, ignore_list):
     print("Reading files from: " + source_directory)
     file_list = []
@@ -74,7 +76,10 @@ def check_file_names(result_directory, rules):
                 print("File name modified:", file_name, "->", new_file_name)
 
 def get_replace_str(rule):
-    return "*" * len(rule)
+    if maintain_character_length:
+        return "*" * len(rule)
+    else:
+        return ""
         
 
 def __main__():
