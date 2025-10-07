@@ -1,6 +1,8 @@
 /source
-/main.rule
 /source másolata
 /results
 *.zip
 *.7z
+__pycache__/
+*.py[cod]
+.pytest_cache/

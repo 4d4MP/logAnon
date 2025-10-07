@@ -1,0 +1,8 @@
+# Default rule file. Replace or extend these patterns for your dataset.
+# Lines starting with `#` are ignored.
+
+# Email addresses
+[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+
+
+# Credit card numbers (very rough pattern)
+\b\d{4}([- ])?\d{4}\1\d{4}\1\d{4}\b

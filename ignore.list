@@ -1,2 +1,3 @@
-.xel
-.blg
+# Glob patterns for files that should be skipped during sanitisation.
+*.xel
+*.blg
